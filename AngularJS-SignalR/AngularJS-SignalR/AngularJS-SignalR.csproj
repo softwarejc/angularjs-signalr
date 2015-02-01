@@ -131,7 +131,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -143,14 +142,25 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\Notes\INotesCallbacks.cs" />
+    <Compile Include="Hubs\Notes\INotesCalls.cs" />
+    <Compile Include="Hubs\Notes\NotesHub.cs" />
+    <Compile Include="Models\Notes\NotesService.cs" />
+    <Compile Include="Models\Notes\Note.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\notes.module.js" />
+    <Content Include="app\globals.js" />
+    <Content Include="app\notes\notes.controller.js" />
+    <Content Include="app\notes\notes.service.js" />
+    <Content Include="app\notes\notes.view.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="images\loading.gif" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-aria.js" />
