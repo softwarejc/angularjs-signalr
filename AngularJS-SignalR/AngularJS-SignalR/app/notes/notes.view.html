@@ -1,12 +1,23 @@
-﻿<div class="container" style="margin-top: 20px; margin-bottom: 20px">
+﻿<!DOCTYPE html>
+
+<div class="container" style="margin-top: 20px; margin-bottom: 20px">
 
     <!--Loading indicator-->
-    <img src="/images/loading.gif" ng-hide="lightsCtrl.connected" class="center-block" title="Loading..." alt="Loading..." />
+    <img src="/images/loading.gif" ng-hide="vm.connected" class="center-block" title="Loading..." alt="Loading..." />
 
     <!--Room number-->
-    <div ng-show="lightsCtrl.connected">
-       Connected
+    <div ng-show="vm.connected" class="pull-right">
+        <div class="vertical-center">
+            Connected to signalR: <strong>{{vm.connectionId}} &nbsp;  &nbsp;</strong>
+        </div>
+        <div class="vertical-center">
+            <div class="spinner">
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
+            </div>
+        </div>
     </div>
-
-
 </div>

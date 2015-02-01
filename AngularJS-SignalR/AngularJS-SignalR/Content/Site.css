@@ -16,14 +16,20 @@ textarea {
     max-width: 280px;
 }
 
-
 #footer {
     text-align: center;
-	width:100%;
-	height:auto;
+    width: 100%;
+    height: auto;
     padding-top: 10px;
     background: #222222;
-	position:absolute;
-	bottom:0;
-	left:0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+
+.vertical-center {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
 }

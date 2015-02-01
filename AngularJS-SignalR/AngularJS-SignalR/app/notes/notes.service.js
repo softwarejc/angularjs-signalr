@@ -17,7 +17,7 @@
         //// Service methods implementation
 
         function _initialize() {
-    
+
             // Hub Proxy (allows to make calls and register callbacks handlers)
             _notesHubProxy = _hubConnection.createHubProxy(notesSignalR.hubName);
 
@@ -43,7 +43,7 @@
 
         function connectedToSignalR() {
             console.debug('connected to signalR, connection ID =' + _hubConnection.id);
-            $rootScope.$broadcast(signalR.onConnected);
+            $rootScope.$broadcast(signalR.onConnected, { connectionId: _hubConnection.id });
         }
 
         function _addNote(note) {

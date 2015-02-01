@@ -16,6 +16,7 @@
         //// PUBLIC fields
         // true after connected to signalR
         self.connected = false;
+        self.connectionId = "not connected";
 
         //// PUBLIC Methods
         self.activate = _activate;
@@ -30,20 +31,20 @@
         function _activate() {
             notesService.initialize();
 
-            $scope.$on(signalR.onConnected, function () {
-                connectedToSignalR();
+            $scope.$on(signalR.onConnected, function (event, args) {
+                connectedToSignalR(args.connectionId);
             });
 
 
         }
 
         //// PRIVATE Functions
-        function connectedToSignalR() {
+        function connectedToSignalR(connectionId) {
             // this needs to be executed within the apply, otherwise angular cannot update bindings
             $scope.$apply(function () {
                 self.connected = true;
 
-                 
+                self.connectionId = connectionId;
             });
 
         }

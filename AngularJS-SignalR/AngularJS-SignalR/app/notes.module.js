@@ -17,18 +17,21 @@
     notesModule.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
         // For any unmatched URL redirect to main URL
-        $urlRouterProvider.otherwise("/main");
+        $urlRouterProvider.otherwise("/");
 
-        $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode({
+            enabled: true,
+            requireBase: false
+        });
 
         $stateProvider
 
-             .state('main', {
-                 url: "/main",
+             .state('initial', {
+                 url: "/",
                  views: {
                      'main': {
                          templateUrl: "app/notes/notes.view.html",
-                         controller: "notesController as notesCtrl"
+                         controller: "notesController as vm"
                      }
                  },
              })

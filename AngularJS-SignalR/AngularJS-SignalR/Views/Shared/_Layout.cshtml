@@ -1,39 +1,45 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="notesModule" lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <script src="~/signalr/hubs"></script>
 </head>
-    <body>
-        @*Header*@
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <h3 style="color: white">
-                    Angular JS - SignalR demo
-                </h3>
-            </div>
+<body>
+    @*Header*@
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <h3 style="color: white">
+                Angular JS - SignalR demo
+            </h3>
         </div>
-        
-        @*Body*@
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            
-            @*Footer*@
-            <footer id="footer">
-                <p style="color: white">
-                    Juan Carlos Sanchez &copy; @DateTime.Now.Year - 
-                    <a href="http://www.softwarejuancarlos.com" target="_blank">http://www.softwarejuancarlos.com</a>
-                </p>
-            </footer>
-        </div>
+    </div>
 
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
-    </body>
+    @*Body*@
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+
+        @*Footer*@
+        <footer id="footer">
+            <p style="color: white">
+                Juan Carlos Sanchez &copy; @DateTime.Now.Year -
+                <a href="http://www.softwarejuancarlos.com" target="_blank">http://www.softwarejuancarlos.com</a>
+            </p>
+        </footer>
+    </div>
+    
+    @*this order is important*@
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/signalr")
+    <script src="~/signalr/hubs"></script>
+    @Scripts.Render("~/bundles/angularapp")
+
+    
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
 </html>
