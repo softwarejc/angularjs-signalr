@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AngularJS_SignalR.Models.Notes;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
@@ -14,6 +15,11 @@ namespace AngularJS_SignalR.Hubs.Notes
 
             // All connected clients will receive this call
             await Clients.All.BroadcastNewNote(newNote);
+        }
+
+        public IEnumerable<Note> GetAllNotes()
+        {
+            return NotesService.GetAll();
         }
 
         public async Task RemoveNote(int noteId)

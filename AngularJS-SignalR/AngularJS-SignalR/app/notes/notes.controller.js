@@ -10,19 +10,23 @@
     notesController.$inject = ['$scope'];
 
     function notesController(notesService, $cookies, $scope) {
-        var self = this;
+        var vm = this;
 
         //// ---------------- PUBLIC ----------------
         //// PUBLIC fields
         // true after connected to signalR
-        self.connected = false;
-        self.connectionId = "not connected";
+        vm.connected = false;
+        vm.connectionId = "not connected";
+        vm.newNote = "";
+        vm.notes = [];
 
         //// PUBLIC Methods
-        self.activate = _activate;
+        vm.activate = _activate;
+        vm.addNote = _addNote;
+        vm.removeNote = _removeNote;
 
         //// ---------------- CODE TO RUN -----------
-        self.activate();
+        vm.activate();
 
         //// ---------------- PRIVATE ---------------
         //// PRIVATE fields
@@ -35,18 +39,46 @@
                 connectedToSignalR(args.connectionId);
             });
 
+            $scope.$on(notesSignalR.onNewNote, function (event, args) {
+                $scope.$apply(function() {
+                    vm.notes.push(args.note);
+                });
+            });
 
+            $scope.$on(notesSignalR.onRemoveNote, function (event, args) {
+                $scope.$apply(function () {
+                    removeNote(args.noteId);
+                });
+            });
+        }
+
+        function _addNote() {
+            notesService.addNote(vm.newNote);
+            vm.newNote = "";
+        }
+
+        function _removeNote(id) {
+            notesService.removeNote(id);
+            removeNote(id);
         }
 
         //// PRIVATE Functions
         function connectedToSignalR(connectionId) {
             // this needs to be executed within the apply, otherwise angular cannot update bindings
             $scope.$apply(function () {
-                self.connected = true;
+                vm.connected = true;
+                vm.connectionId = connectionId;
 
-                self.connectionId = connectionId;
+                // load all notes
+                notesService.getAllNotesAsync().then(function(notes) {
+                    vm.notes = notes;
+                });
             });
+        }
 
+        function removeNote(id) {
+            console.debug("remove " + id);
+            vm.notes = _.without(vm.notes, _.findWhere(vm.notes, { id: id }));
         }
     }
 })();

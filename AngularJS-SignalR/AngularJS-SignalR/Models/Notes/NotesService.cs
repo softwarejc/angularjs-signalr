@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AngularJS_SignalR.Models.Notes
 {
@@ -14,7 +15,12 @@ namespace AngularJS_SignalR.Models.Notes
             }
         }
 
-        private static readonly List<Note> notesList = new List<Note>();
+        private static readonly List<Note> notesList = new List<Note>
+        {
+            new Note("Learn Underscore"),
+            new Note("Learn Ionic Framework"),
+            new Note("Learn AngularJS Google maps"),
+        };
 
         public static bool Remove(int noteId)
         {
@@ -28,6 +34,11 @@ namespace AngularJS_SignalR.Models.Notes
             notesList.Add(newNote);
 
             return newNote;
+        }
+
+        public static IEnumerable<Note> GetAll()
+        {
+            return notesList;
         }
     }
 }

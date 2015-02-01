@@ -5,19 +5,42 @@
     <!--Loading indicator-->
     <img src="/images/loading.gif" ng-hide="vm.connected" class="center-block" title="Loading..." alt="Loading..." />
 
-    <!--Room number-->
-    <div ng-show="vm.connected" class="pull-right">
-        <div class="vertical-center">
-            Connected to signalR: <strong>{{vm.connectionId}} &nbsp;  &nbsp;</strong>
-        </div>
-        <div class="vertical-center">
-            <div class="spinner">
-                <div class="rect1"></div>
-                <div class="rect2"></div>
-                <div class="rect3"></div>
-                <div class="rect4"></div>
-                <div class="rect5"></div>
+    <!--Connection indicator -->
+    <div class="row" ng-show="vm.connected">
+        <div class="pull-right">
+            <div class="vertical-center">
+                Connected to signalR: <strong>{{vm.connectionId}} &nbsp;  &nbsp;</strong>
+            </div>
+            <div class="vertical-center">
+                <div class="spinner">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                </div>
             </div>
         </div>
+    </div>
+    <!--All notes-->
+    <div class="row" ng-show="vm.connected">
+        <div>
+            <h3>
+                <span class="glyphicon glyphicon-pencil"></span>
+                My tasks:
+            </h3>
+            <div>
+                <input style="font-size:20px;" class="vertical-center"
+                       placeholder="new task"
+                       ng-show="vm.connected"
+                       ng-model="vm.newNote" />
+
+                <button type="button" class="btn btn-primary btn-group-vertical" ng-click="vm.addNote()" ng-disabled="vm.newNote.length < 2">Add task</button>
+            </div>
+        </div>
+
+        <!--List of notes-->
+        <alert type="info" ng-repeat="note in vm.notes" style="margin-top: 20px" close="vm.removeNote(note.id)">{{note.text}}</alert>
+
     </div>
 </div>

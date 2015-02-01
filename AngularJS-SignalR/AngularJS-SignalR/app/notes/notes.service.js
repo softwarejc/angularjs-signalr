@@ -3,12 +3,13 @@
 
     angular
         .module('notesModule')
-        .service('notesService', ['$resource', '$rootScope', notesService]);
+        .service('notesService', ['$resource', '$rootScope', '$q', notesService]);
 
     notesService.$inject = ['$resource'];
     notesService.$inject = ['$rootScope'];
-
-    function notesService($resource, $rootScope) {
+    notesService.$inject = ['$q'];
+    
+    function notesService($resource, $rootScope, $q) {
 
         //// privates
         var _hubConnection = $.hubConnection();
@@ -32,13 +33,13 @@
         }
 
         function broadcastNewNote(note) {
-            console.debug(notesSignalR.onNewNote);
+            console.debug(notesSignalR.onNewNote + " " + note.text);
             $rootScope.$broadcast(notesSignalR.onNewNote, { note: note });
         }
 
-        function broadcastRemoveNote(note) {
-            console.debug(notesSignalR.onRemoveNote);
-            $rootScope.$broadcast(notesSignalR.onRemoveNote, { note: note });
+        function broadcastRemoveNote(noteId) {
+            console.debug(notesSignalR.onRemoveNote + " " + noteId);
+            $rootScope.$broadcast(notesSignalR.onRemoveNote, { noteId: noteId });
         }
 
         function connectedToSignalR() {
@@ -54,6 +55,18 @@
             _notesHubProxy.invoke(notesSignalR.removeNote, noteId);
         }
 
+        function _getAllNotesAsync() {
+
+            var deferred = $q.defer();
+
+            _notesHubProxy.invoke(notesSignalR.getAllNotes)
+               .done(function (notes) {
+                   deferred.resolve(notes);
+               });
+
+            return deferred.promise;
+        }
+
         //// Service public methods
         var service = {};
 
@@ -63,6 +76,7 @@
         service.initialize = _initialize;
         service.addNote = _addNote;
         service.removeNote = _removeNote;
+        service.getAllNotesAsync = _getAllNotesAsync;
 
         return service;
 
