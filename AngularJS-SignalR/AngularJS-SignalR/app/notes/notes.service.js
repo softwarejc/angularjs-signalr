@@ -16,7 +16,6 @@
         var _notesHubProxy = undefined;
 
         //// Service methods implementation
-
         function _initialize() {
 
             // Hub Proxy (allows to make calls and register callbacks handlers)
