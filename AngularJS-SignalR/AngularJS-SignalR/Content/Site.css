@@ -15,3 +15,15 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+#footer {
+    text-align: center;
+	width:100%;
+	height:auto;
+    padding-top: 10px;
+    background: #222222;
+	position:absolute;
+	bottom:0;
+	left:0;
+}
